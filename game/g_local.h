@@ -664,13 +664,24 @@ void T_RadiusDamage (edict_t *inflictor, edict_t *attacker, float damage, edict_
 #define DAMAGE_BULLET			0x00000010  // damage is from a bullet (used for ricochets)
 #define DAMAGE_NO_PROTECTION	0x00000020  // armor, shields, invulnerability, and godmode have no effect
 
-#define DEFAULT_BULLET_HSPREAD	300
-#define DEFAULT_BULLET_VSPREAD	500
-#define DEFAULT_SHOTGUN_HSPREAD	1000
-#define DEFAULT_SHOTGUN_VSPREAD	500
+//#define DEFAULT_BULLET_HSPREAD	300
+//#define DEFAULT_BULLET_VSPREAD	500
+//#define DEFAULT_SHOTGUN_HSPREAD	1000
+//#define DEFAULT_SHOTGUN_VSPREAD	500
 #define DEFAULT_DEATHMATCH_SHOTGUN_COUNT	12
 #define DEFAULT_SHOTGUN_COUNT	12
 #define DEFAULT_SSHOTGUN_COUNT	20
+
+// JNCVMOD 
+// make the machine have no recoil
+#define DEFAULT_BULLET_HSPREAD	10
+#define DEFAULT_BULLET_VSPREAD	10
+#define DEFAULT_SHOTGUN_HSPREAD	1500
+#define DEFAULT_SHOTGUN_VSPREAD	20
+
+
+
+
 
 //
 // g_monster.c
@@ -852,6 +863,10 @@ typedef struct
 	int			max_cells;
 	int			max_slugs;
 
+	//JNCV MOD 
+	int			max_mana;
+
+
 	gitem_t		*weapon;
 	gitem_t		*lastweapon;
 
@@ -862,6 +877,9 @@ typedef struct
 	int			helpchanged;
 
 	qboolean	spectator;			// client is a spectator
+
+
+
 } client_persistant_t;
 
 // client data that stays across deathmatch respawns
@@ -959,6 +977,9 @@ struct gclient_s
 
 	edict_t		*chase_target;		// player we are chasing
 	qboolean	update_chase;		// need to update chase info?
+
+
+	
 };
 
 

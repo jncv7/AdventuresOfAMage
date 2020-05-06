@@ -858,8 +858,11 @@ void Weapon_Blaster_Fire (edict_t *ent)
 
 void Weapon_Blaster (edict_t *ent)
 {
+	// make this a magic missle fire bolt.
+	// JNCV MOD
 	static int	pause_frames[]	= {19, 32, 0};
-	static int	fire_frames[]	= {5, 0};
+	// static int	fire_frames[]	= {5, 0};
+	static int	fire_frames[] = { 5,7, 9, 0 };
 
 	Weapon_Generic (ent, 4, 8, 52, 55, pause_frames, fire_frames, Weapon_Blaster_Fire);
 }
@@ -947,6 +950,11 @@ void Weapon_HyperBlaster (edict_t *ent)
 
 MACHINEGUN / CHAINGUN
 
+JNCV MOD 
+
+Machine Gun = Magic Missles 
+Chain Gun = Healing spell? or maybe a force pull?
+
 ======================================================================
 */
 
@@ -957,7 +965,7 @@ void Machinegun_Fire (edict_t *ent)
 	vec3_t		forward, right;
 	vec3_t		angles;
 	int			damage = 8;
-	int			kick = 2;
+	int			kick = 0;
 	vec3_t		offset;
 
 	if (!(ent->client->buttons & BUTTON_ATTACK))
@@ -1005,7 +1013,7 @@ void Machinegun_Fire (edict_t *ent)
 		if (ent->client->machinegun_shots > 9)
 			ent->client->machinegun_shots = 9;
 	}
-
+	// added this for update
 	// get start / end positions
 	VectorAdd (ent->client->v_angle, ent->client->kick_angles, angles);
 	AngleVectors (angles, forward, right, NULL);
@@ -1053,13 +1061,24 @@ void Chaingun_Fire (edict_t *ent)
 	float		r, u;
 	vec3_t		offset;
 	int			damage;
-	int			kick = 2;
+	// int		kick = 2;
+	// it looks like you cannot have this be something that pulls torwards you with negative values
+	// what about a poison spit attack?
+	int			kick = 0;
 
-	if (deathmatch->value)
-		damage = 6;
-	else
-		damage = 8;
+	// JNCV MOD 
+	int poisonDamage;
 
+
+	if (deathmatch->value){
+		damage = 0;
+		poisonDamage = 10;
+	}
+	else{
+		//	damage = 8;
+		damage = 0;
+		poisonDamage = 10;
+	}
 	if (ent->client->ps.gunframe == 5)
 		gi.sound(ent, CHAN_AUTO, gi.soundindex("weapons/chngnu1a.wav"), 1, ATTN_IDLE, 0);
 
@@ -1178,6 +1197,11 @@ void Weapon_Chaingun (edict_t *ent)
 
 SHOTGUN / SUPERSHOTGUN
 
+JNCV MOD 
+
+shotgun --> a stun spell
+super shot gun --> a force push kind of spell
+
 ======================================================================
 */
 
@@ -1186,8 +1210,10 @@ void weapon_shotgun_fire (edict_t *ent)
 	vec3_t		start;
 	vec3_t		forward, right;
 	vec3_t		offset;
-	int			damage = 4;
-	int			kick = 8;
+	// int			damage = 4;
+	int			damage = 0;
+	// int			kick = 8;
+	int			kick = 15;
 
 	if (ent->client->ps.gunframe == 9)
 	{
@@ -1242,8 +1268,12 @@ void weapon_supershotgun_fire (edict_t *ent)
 	vec3_t		forward, right;
 	vec3_t		offset;
 	vec3_t		v;
-	int			damage = 6;
-	int			kick = 12;
+	//int			damage = 6;
+	//int			kick = 12;
+
+	// JNCV MOD
+	int			damage = 0;
+	int			kick = 75;
 
 	AngleVectors (ent->client->v_angle, forward, right, NULL);
 

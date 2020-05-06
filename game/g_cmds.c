@@ -899,6 +899,32 @@ void Cmd_PlayerList_f(edict_t *ent)
 	gi.cprintf(ent, PRINT_HIGH, "%s", text);
 }
 
+/*
+JNCV MOD 
+to set jetpack on or off
+*/
+/*
+void Cmd_Thrust_f(edict_t *ent){
+	char *string;
+	string = gi.args();
+
+	if (Q_stricmp(string, "on") == 0){
+		ent->client->thrusting = 1;
+		ent->client->next_thrust_sound = 0;
+	}
+	else {
+		ent->client->thrusting = 0;
+	}
+
+}
+
+*/
+
+
+ 
+
+
+
 
 /*
 =================
